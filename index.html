@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
+    <script src="todo.js"></script> 
+    <title>PROJETO VUE-JS</title>
+</head>
+<body>
+    <div id="app">
+        {{ mensagem }}
+    </div>
+
+    <div id="app-2">
+        <!-- Diretiva do Vue são referênciadas com v- -->
+        <span v-bind:title="mensagem">
+            Pare o mouse sobre mim e veja a dica interligada dinamicanete!
+        </span>
+    </div>
+
+    <!-- Se vendo for = true, apareça -->
+    <div id="app-3">
+        <p v-if="vendo">
+            Agora você me viu
+        </p>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.texto}}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app-5">
+        <p>
+            {{ mensagem }}
+            <!-- Método v-on: serve para ouvir todos os eventos disponíveis -->
+            <button v-on:click="reverterMensagem"> Inverter Mensagem </button>
+        </p>
+    </div>
+
+    <div id="app-6">
+        <p> 
+            {{ mensagem }}
+        </p>
+        <!-- É a partir do v-model que funciona o data bind -->
+        <input v-model="mensagem">
+    </div>
+    <template> 
+        <ol>
+            <!-- Cria uma instância do componente todo-item -->
+            <todo-item></todo-item>
+        </ol>
+    </template>
+
+</body>
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            mensagem: 'Olá Vue'
+        }
+    });
+
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+            mensagem: 'Você carregou esta página em ' + new Date().toLocaleString()
+        }
+    });
+
+    // 'Variável' declarada como true para que o elemento possa aparecere, caso alterada no console (app3.vendo = false)
+    var app3 = new Vue({
+        el: '#app-3',
+        data: {
+            vendo: true
+        }
+    });
+
+    var app4 = new Vue({
+        el: '#app-4',
+        data: {
+            todos: [
+                { texto: 'Aprender JavaScript' },
+                { texto: 'Aprender Vue' },
+                { texto: 'Criar algo incrível' },
+            ]
+        }
+    });
+
+    var app5 = new Vue({
+        el: '#app-5',
+        data: {
+            mensagem: 'Olá Vue!'
+        },
+        // Depois dos elementos são criados os métodos
+        methods: {
+            reverterMensagem: function () {
+                this.mensagem = this.mensagem.split('').reverse().join('')
+            }
+        }
+    });
+
+    var app6 = new Vue({
+        el: '#app-6',
+        data: {
+            mensagem: 'Olá Vue'
+        }
+    });
+
+</script>
+</html>
